@@ -1,0 +1,10 @@
+form(method='post', action='/tasks')
+  fieldset
+    legend Add a task
+    .clearfix
+      label task
+      .input
+        input(name='task[task]', class='xlarge')
+    .actions
+      input(type='submit', value='Save', class='btn-primary')
+      button(type='reset', class='btn') Cancel

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Socket.IO Example</title>
+</head>
+<body>
+
+  <h1>Socket.IO Example</h1>
+  <button id="ping">Send PING to server</button>
+  <div id='pings'>
+
+  </div>  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src='/socket.io/socket.io.js'></script>
+
+  <script>
+    var socket = io.connect('http://127.0.0.1:3000');
+    
+    socket.on('ping', function(data) {
+      console.log('Received PING. Sending PONG');
+      $('#pings').append("<p>"+data.text+ '-'+new Date() +"</p>");
+      socket.emit('pong', {text: 'PONG'});
+    });
+
+    socket.on('pong', function(data) {
+      console.log('received PONG response. PONG!');
+    });
+
+    $('#ping').click(function(e) {
+        e.preventDefault();
+        console.log('Sending PING to server...');
+        socket.emit('ping', {text: 'PING!'});
+    });
+
+  </script>
+
+</body>
+</html>
