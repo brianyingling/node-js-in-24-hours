@@ -1,0 +1,37 @@
+<html>
+<head>
+  <title>Socket.IO Twitter Example</title>
+</head>
+<body>
+  <h1>Socket.IO Twitter Example</h1>
+
+  <ul class="percentage">
+    <li class="love">0</li>
+    <li class="hate">0</li>
+    <li class="total">0</li>
+  </ul>
+
+  <ul class="tweets"></ul>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    var socket = io.connect();
+
+    jQuery(function ($) {
+
+      socket.on('tweet', function(data) {
+        
+        $('ul.tweets').prepend('<li>' + data.user + ": " + data.text + '</li>');
+        $('li.love').text(data.love + '%');
+        $('li.hate').text(data.hate + '%');
+        $('li.total').text(data.total);
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
