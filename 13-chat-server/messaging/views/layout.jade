@@ -1,0 +1,68 @@
+html
+  head
+    title Socket.IO Example
+    style
+      #send-message     {display: none;}
+      #nicknames        {width: 300px; float: right;}
+      #message          {width: 300px; height: 100px;}
+      #message p strong {margin-right: 5px;}
+
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+  
+    script(src='/socket.io/socket.io.js')
+
+  body
+    h1 Socket.IO Express Example
+    form(id='set-nickname')
+      label(for='nickname') Nickname: 
+      input(type='text' id='nickname')
+      input(type='submit')
+
+    form(id='send-message')
+      textarea(id='message')
+      input(type='submit')
+
+    section(id='nicknames')
+      ul
+
+    section(id='messages')
+
+    script
+      var socket = io.connect();
+
+      $('#set-nickname').submit(function (e) {
+        e.preventDefault();
+        socket.emit('nickname', $('#nickname').val(), function (data) {
+          if (data) {
+            console.log('Nickname ' + data + ' send successfully');
+            $('#set-nickname').hide();
+            $('#send-message').show();
+          }
+          else {
+            var errorMsg = "<p>Sorry, name already taken</p>";
+            $('#set-nickname').prepend(errorMsg);
+          }
+        });
+      });
+
+      $('#send-message').submit(function (e) {
+        e.preventDefault();
+        socket.emit('user message', $('#message').val() );
+        $('#message').val('').focus();
+      });
+
+      socket.on('nicknames', function (data) {
+        var html = '';
+        for (var i=0; i < data.length; i++) {
+          html += '<li>'+data[i]+'</li>'
+        }
+        $('#nicknames ul').empty().append(html);
+      });
+
+      socket.on('user message', function (data) {
+        var msg = "<p><strong>"+data.nick+"</strong> "+data.message+"</p>";
+        $('#messages').append(msg);
+      });
+
+
+    block content
