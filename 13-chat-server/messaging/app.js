@@ -17,7 +17,7 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('nickname', function (data, callback) {
     // false if the name already exists
-    debugger;
+    
     console.log(data);
     if (nicknames.indexOf(data) != -1) {
       callback(false);
