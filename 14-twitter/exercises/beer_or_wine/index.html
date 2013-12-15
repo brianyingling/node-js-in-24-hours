@@ -1,0 +1,59 @@
+<html>
+<head>
+  <title>Beer or Wine? Which is more Popular?</title>
+  <style>
+    ul.percentage {width: 100%;}
+    ul.percentage li {display: block; width: 0;}
+    ul.percentage li span {float: right; display: block;}
+    ul.percentage li.beer {background: tan; color: #fff;}
+    ul.percentage li.wine {background: purple; color: #fff;}
+    ul.percentage li.total {width: 75px;}
+
+  </style>
+</head>
+  
+
+<body>
+  <h1>Beer or Wine? Which Is More Popular?</h1>
+  <ul class='percentage'>
+    <li class='beer'>
+      beer <span>0</span>
+    </li>
+    <li class="wine">
+      wine <span>0</span>
+    </li>
+    <li class="total">
+      total <span>0</span>
+    </li>
+  </ul>
+
+<ul class="tweets"></ul>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+<script>
+  
+  var socket = io.connect();
+  jQuery(function($) {
+
+    socket.on('tweet', function(data) {
+
+      $('li.beer').css('width',  data.beer + '%');
+      $('li.beer span').text(Math.round(data.beer * 10)/10 + '%');
+
+      $('li.wine').css('width', data.wine + '%');
+      $('li.wine span').text(Math.round(data.wine) * 10/10 + '%');
+
+      $('li.total span').text(data.total);
+
+      $('ul.tweets').prepend('<li>'+data.user+': '+data.text+', location: '+data.location+'</li>');
+    });
+  });
+
+
+</script>
+
+
+</body>
+</html>

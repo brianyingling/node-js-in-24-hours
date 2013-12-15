@@ -1,0 +1,41 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.text, .location {
+  font-style: italic;
+}
+
+.tweet {
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 15px #eee;
+}
+
+img {float: left;}
+
+img, .profile {
+  display: inline-block;
+  margin: 2px;
+  vertical-align: top;
+}
+
+#beer, #wine {
+  width: 45%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px;
+}
+
+

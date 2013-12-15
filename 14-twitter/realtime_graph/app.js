@@ -20,6 +20,8 @@ var twit = new twitter({
 twit.stream('statuses/filter', {track: ['love', 'hate']}, function(stream) {
   stream.on('data', function(data) {
 
+    console.log(data.user);
+
     var text = data.text.toLowerCase();
     
     if (text.indexOf('love') !== -1) {

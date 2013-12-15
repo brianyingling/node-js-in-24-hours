@@ -1,0 +1,19 @@
+doctype 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+    script(src="/socket.io/socket.io.js")
+
+    style
+     ul.percentage {width: 100%;}
+     ul.percentage li {display: block; width: 0;}
+     ul.percentage li span { text-align: right; padding: 2px; display: block;}
+     ul.percentage li.beer {background: tan; color: #fff;}
+     ul.percentage li.wine {background: purple; color: #fff;}
+     ul.percentage li.total {width: 75px;}
+
+
+  body
+    block content

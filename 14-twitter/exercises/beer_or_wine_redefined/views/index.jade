@@ -1,0 +1,65 @@
+extends layout
+
+block content
+  h1 #{title}
+  ul.percentage
+    li.beer beer
+      span 0
+    li.wine wine
+      span 0
+    li.total total
+      span 0
+
+  //- div#tweets
+
+  div#beer
+    h3 Beer 
+    div#beer-tweets
+  
+  div#wine
+    h3 Wine
+    div#wine-tweets
+
+  script
+    socket = io.connect();
+    socket.on('tweet', function(data) {
+
+      console.log(data);
+
+      $('li.beer').css('width', data.beer + '%');
+      $('li.beer span').text(Math.round(data.beer*10)/10+'%');
+
+      $('li.wine').css('width', data.wine+'%');
+      $('li.wine span').text(Math.round(data.wine*10)/10+'%');
+
+      $('li.total span').text(data.total);
+
+
+      var $tweet   = $('<div>').addClass('tweet');
+      var $profile = $('<div>').addClass('profile');
+      var $name    = $('<div>').addClass('name');
+      var $text    = $('<span>').addClass('text');
+      var $loc     = $('<div>').addClass('location');
+      var $img     = $('<img>').attr('src', data.user.profile_image_url);
+      
+      $text.html(data.text);
+      $name.html(data.user.screen_name+": ");
+      $loc.html(data.user.location);
+
+      $profile.append($img).append($name).append($text).append($loc);
+      $tweet.append($profile);
+      $tweet.fadeIn('slow');
+
+      if (data.text.indexOf('beer') !== -1) {
+        $('#beer-tweets').prepend($tweet).fadeIn('slow');
+      }
+
+      if (data.text.indexOf('wine') !== -1) {
+        $('#wine-tweets').prepend($tweet).fadeIn('slow');
+      }
+      
+      //- var tweet = "<li>"+data.text+"</li>";
+      //- $('#tweets').prepend($tweet).fadeIn();
+    });
+
+      
