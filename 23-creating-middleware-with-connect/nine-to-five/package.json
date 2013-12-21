@@ -1,0 +1,7 @@
+{
+  "name":"nine-to-five",
+  "version":"0.0.1",
+  "dependences":{
+    "connect":"2.0.1"
+  }
+}

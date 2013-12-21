@@ -1,0 +1,18 @@
+var EventEmitter = require('events').EventEmitter;
+var secretMessage = new EventEmitter();
+
+secretMessage.on('message', function(data) {
+  console.log(data);
+});
+
+secretMessage.on('self destruct', function() {
+  console.log('BANG! This message is destroyed');
+});
+
+secretMessage.emit('message', 'This is a secret message. It will self destruct in 5 seconds');
+
+setTimeout(function() {
+  secretMessage.emit('self destruct');
+}, 5000);
+
+
